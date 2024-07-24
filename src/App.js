@@ -7,8 +7,8 @@ import ConnectWalletButton from './components/ConnectWalletButton';
 import Navbar from './components/Navbar';
 import CreateListingForm from './components/CreateListingForm';
 import Listing from './components/Listing';
-import { contractAddress } from './contracts/contractAddress';
 import ContributionNFTABI from './contracts/ContributionNFTABI.json';
+import { contractAddress as contributionNFTAddress } from './contracts/contractAddress';
 import './App.css';
 
 function App() {
@@ -40,8 +40,9 @@ function App() {
     const instance = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(instance);
     setProvider(provider);
+
     const signer = provider.getSigner();
-    const contract = new ethers.Contract(contractAddress, ContributionNFTABI, signer);
+    const contract = new ethers.Contract(contributionNFTAddress, ContributionNFTABI, signer);
     setContract(contract);
 
     const accounts = await provider.listAccounts();
@@ -55,8 +56,27 @@ function App() {
     if (!contract) return;
     setLoading(true);
     try {
-      const tx = await contract.closeListingAndMint();
+      // Example call to a minting function on the ContributionNFT contract
+      // Adjust this according to your actual minting function
+      const listingsToMint = listings.filter(listing => listing.units <= listing.contributions.reduce((acc, c) => acc + c.units, 0));
+
+      // Get the addresses of the contributors (you might want to adjust this part as needed)
+      const contributors = listingsToMint.flatMap(listing => listing.contributions.map(c => c.address));
+      const uniqueContributors = [...new Set(contributors)];
+
+      // Ensure there are at least two unique addresses
+      if (uniqueContributors.length < 2) {
+        alert('At least two unique contributors are required to mint NFTs.');
+        setLoading(false);
+        return;
+      }
+
+      // Assuming the contract has a minting function that accepts two addresses
+      // Adjust this according to your actual contract's function
+      const [recipient1, recipient2] = uniqueContributors;
+      const tx = await contract.mintNFTs(recipient1, recipient2); // Replace with actual minting function
       await tx.wait();
+
       alert('NFTs minted successfully!');
     } catch (error) {
       console.error(error);
