@@ -1,38 +1,110 @@
+/* src/App.css */
+
 .App {
+  text-align: center;
+  margin: 20px;
+  position: relative;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #282c34;
+  padding: 10px;
+  color: white;
+  position: relative;
+}
+
+.left-section {
+  position: absolute;
+  left: 10px;
+}
+
+.center-section {
+  flex-grow: 1;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.wallet-info {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+button {
+  background-color: #007bff;
+  border: none;
   color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 10px;
+  cursor: pointer;
+  border-radius: 4px;
 }
 
-.App-link {
-  color: #61dafb;
+button:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.create-listing-form {
+  margin: 20px auto;
+  max-width: 400px;
+  text-align: left;
+}
+
+.create-listing-form div {
+  margin-bottom: 15px;
+}
+
+.create-listing-form label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.create-listing-form input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.listing {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 400px;
+  text-align: left;
+}
+
+.listing h3 {
+  margin-top: 0;
+}
+
+.progress-bar {
+  width: 100%;
+  background-color: #f3f3f3;
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 10px 0;
+}
+
+.progress {
+  height: 20px;
+  background-color: #4caf50;
+  width: 0;
+}
+
+.error {
+  color: red;
+}
+
+.logo {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  width: 100px; /* Adjust size as needed */
 }
